@@ -92,5 +92,5 @@ jobs:
         - name: Dockerhub Login
           uses: docker/login-action@2.2.0
           with:
-            username: ${{vars.Dockerhub_USERNAME}}
-            password: ${{secrets.Dockerhub_PASSWORD}}
+            username: ${{vars.DOCKERHUB_USERNAME}}
+            password: ${{secrets.DOCKERHUB_PASSWORD}}
