@@ -61,7 +61,7 @@ jobs:
     code-coverage:
                 name: Code Coverage
                 container: 
-                  image: node: 18
+                  image: node:18
                 services:
                     mongo-db:
                       image: siddharth67/mongo-db:non-prod
