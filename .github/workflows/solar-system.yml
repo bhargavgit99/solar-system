@@ -171,10 +171,9 @@ jobs:
             aws eks --region us-east-2 update-kubeconfig --name Democluster
 
         - name: Fetch Kubernetes Cluster Details
-          run: |
-            kubectl version --short
-            echo -------------------------------------
-            kubectl get nodes
+          run: kubectl version --short
+           # echo -------------------------------------
+           # kubectl get nodes
          
             
         - name: Save Nginx Ingress Controller IP as a GITHUB Environmental Variable
@@ -196,3 +195,17 @@ jobs:
         - name: Check Files
           run: |
            cat kubernetes/development/*.yaml
+
+        - name: Create MongoDB Secret
+          run: |
+           kubectl -n ${{vars.NAMESPACE}} create secret generic mongo-db-creds \
+           --from-literal=MONGO_URI=${{env.MONGO_URI}} \
+           --from-literal=MONGO_USERNAME=${{vars.MONGO_USERNAME}} \
+           --from-literal=MONGO_PASSWORD=${{secrets.MONGO_PASSWORD}} \
+           --save-config \
+           --dry-run=client \
+           -o yaml | kubectl apply -f -
+
+        - name: Deploy to Dev Env
+          run: |
+           kubectl apply -f kubernetes/development
