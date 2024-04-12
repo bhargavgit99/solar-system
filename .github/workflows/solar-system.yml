@@ -175,6 +175,7 @@ jobs:
            kubectl version
            echo -----------------------------------
             kubectl get nodes
+            kubectl get ingress -n developer
           #  kubectl create ns development
          
             
