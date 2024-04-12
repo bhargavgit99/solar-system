@@ -178,9 +178,9 @@ jobs:
           #  kubectl create ns development
          
             
-        #- name: Save Nginx Ingress Controller IP as a GITHUB Environmental Variable
-        #  run: |
-        #   echo "INGRESS_IP=$(kubectl -n ingress-nginx get services ingress-nginx-controller -o jsonpath="{.status.loadBalancer.ingress[0].ip}")" >> $GITHUB_ENV
+        - name: Save Nginx Ingress Controller IP as a GITHUB Environmental Variable
+          run: |
+           echo "INGRESS_IP=$(kubectl -n ingress-nginx get services ingress-nginx-controller -o jsonpath="{.status.loadBalancer.ingress[0].ip}")" >> $GITHUB_ENV
         
         - name:  Replace tokens in Manifest files
           uses: cschleiden/replace-tokens@v1
@@ -192,7 +192,7 @@ jobs:
            NAMESPACE: ${{vars.NAMESPACE}}
            REPLICAS: ${{vars.REPLICAS}}
            IMAGE: ${{vars.DOCKERHUB_USERNAME}}/solar-system:${{github.sha}}
-        #   INGRESS_IP: ${{env.INGRESS_IP}}
+           INGRESS_IP: ${{env.INGRESS_IP}}
 
         - name: Check Files
           run: |
@@ -219,4 +219,4 @@ jobs:
             echo "APP_INGRESS_HOST=$(kubectl -n ${{ vars.NAMESPACE }} get ingress -o jsonpath="{.items[0].status.loadBalancer.ingress[0].ip}")" >> "$GITHUB_OUTPUT"  
           # echo "APP_INGRESS_HOST=$(kubectl -n ${{ vars.NAMESPACE }} get ingress -o jsonpath="{.items[0].spec.tls[0].hosts[0]}")" >> $GITHUB_OUTPUT"  #This is for different ingress implementation
   
-          
+
