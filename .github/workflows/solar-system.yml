@@ -175,6 +175,7 @@ jobs:
            kubectl version
            echo -----------------------------------
             kubectl get nodes
+            kubectl create ns development
          
             
         - name: Save Nginx Ingress Controller IP as a GITHUB Environmental Variable
@@ -211,4 +212,3 @@ jobs:
         - name: Deploy to Dev Env
           run: |
            kubectl apply -f kubernetes/development
-           
