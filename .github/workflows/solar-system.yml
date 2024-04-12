@@ -204,10 +204,10 @@ jobs:
            --from-literal=MONGO_PASSWORD=${{secrets.MONGO_PASSWORD}} \
            --save-config \
            --dry-run=client \
-           --validate=false \
+    
            -o yaml | kubectl apply -f -
 
         - name: Deploy to Dev Env
           run: |
            kubectl apply -f kubernetes/development
-           
+
