@@ -171,7 +171,7 @@ jobs:
             aws eks --region us-east-2 update-kubeconfig --name Democluster
 
         - name: Fetch Kubernetes Cluster Details
-          run: kubectl version --short -o yaml
+          run: kubectl version
            echo -------------------------------------
            kubectl get nodes
          
