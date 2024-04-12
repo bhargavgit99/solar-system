@@ -178,21 +178,21 @@ jobs:
             kubectl create ns development
          
             
-        - name: Save Nginx Ingress Controller IP as a GITHUB Environmental Variable
-          run: |
-           echo "INGRESS_IP=$(kubectl -n ingress-nginx get services ingress-nginx-controller -o jsonpath="{.status.loadBalancer.ingress[0].ip}")" >> $GITHUB_ENV
+        #- name: Save Nginx Ingress Controller IP as a GITHUB Environmental Variable
+        #  run: |
+        #   echo "INGRESS_IP=$(kubectl -n ingress-nginx get services ingress-nginx-controller -o jsonpath="{.status.loadBalancer.ingress[0].ip}")" >> $GITHUB_ENV
         
         - name:  Replace tokens in Manifest files
           uses: cschleiden/replace-tokens@v1
           with:
-           tokenPrefix: '_{_'
-           tokenSuffix: '_}_'
+           tokenPrefix: '{'
+           tokenSuffix: '}'
            files: '["kubernetes/development/*.yaml"]'
           env:
            NAMESPACE: ${{vars.NAMESPACE}}
            REPLICAS: ${{vars.REPLICAS}}
            IAMGE: ${{vars.DOCKERHUB_USERNAME}}/solar-system:${{github.sha}}
-           INGRESS_IP: ${{env.INGRESS_IP}}
+        #   INGRESS_IP: ${{env.INGRESS_IP}}
 
         - name: Check Files
           run: |
