@@ -171,9 +171,9 @@ jobs:
             aws eks --region us-east-2 update-kubeconfig --name Democluster
 
         - name: Fetch Kubernetes Cluster Details
-          run: kubectl version --short
-           # echo -------------------------------------
-           # kubectl get nodes
+          run: kubectl version --short -o yaml
+           echo -------------------------------------
+           kubectl get nodes
          
             
         - name: Save Nginx Ingress Controller IP as a GITHUB Environmental Variable
